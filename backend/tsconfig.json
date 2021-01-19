@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "es2019",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "outDir": "./build",
+        "esModuleInterop": true,
+        "strict": true,
+        "sourceMap": true,
+        "skipLibCheck": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "baseUrl": "./",
+        "paths": {
+            "@components/*": ["src/components/*"],
+            "@routers/*": ["src/routers/*"],
+            "@config/*": ["src/config/*"],
+            "@utils/*": ["src/utils/*"],
+        },
+        "plugins": [
+            {"transform": "typescript-transform-paths"}
+        ],
+    },
+    "importsNotUsedAsValues": "preserve"
+}

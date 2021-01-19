@@ -1,0 +1,24 @@
+type User {
+    id: ID!,
+    username: String!,
+    email: String!,
+    bio: String!,
+    image: String!,
+    favorites: [String]!,
+    followings: [String]!,
+    token: String!,
+}
+
+type Query {
+    users: Int,
+}
+
+input RegisterInput {
+    email: String!,
+    username: String!,
+    password: String!,
+}
+
+type Mutation {
+    register(input: RegisterInput!): User,
+}
