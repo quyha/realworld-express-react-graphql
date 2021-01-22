@@ -2,15 +2,15 @@ type User {
     id: ID!,
     username: String!,
     email: String!,
-    bio: String!,
-    image: String!,
+    bio: String,
+    image: String,
     favorites: [String]!,
     followings: [String]!,
-    token: String!,
+    accessToken: String!,
 }
 
 type Query {
-    users: Int,
+    me: User,
 }
 
 input RegisterInput {
@@ -20,5 +20,6 @@ input RegisterInput {
 }
 
 type Mutation {
-    register(input: RegisterInput!): User,
+    register(input: RegisterInput!): User!,
+    login(email: String!, password: String!): User!,
 }

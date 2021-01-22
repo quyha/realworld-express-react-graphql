@@ -9,7 +9,7 @@
 
 **Development**
 
-App served `http://localhost:3001`
+App served `http://localhost:3001/graphql`
 
 - Copy `.env.example` file to `.env.development` on the root folder.
 - Open your `.env.development` file and change the values to your needs
@@ -21,7 +21,7 @@ App served `http://localhost:3001`
 
 **Production**
 
-Build app once to `/build`. App served `http://localhost:9009`
+Build app once to `/build`. App served `http://localhost:9009/graphql`
 
 - Copy `.env.example` file to `.env` on the root folder
 - Open your `.env.development` file and change the values to your needs

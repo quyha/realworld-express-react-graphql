@@ -13,6 +13,15 @@ export interface IUserAuthResponse extends Pick<IUser, 'username' | 'email' | 'i
     accessToken: string,
 }
 
+export interface IUserResponse extends IUser {
+    id: string,
+}
+
+export interface IUserSignToken {
+    id: string,
+    username: string,
+}
+
 export interface IUserRegisterInput {
     username: string,
     email: string,

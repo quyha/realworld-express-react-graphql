@@ -21,6 +21,7 @@
             "@routers/*": ["src/routers/*"],
             "@config/*": ["src/config/*"],
             "@utils/*": ["src/utils/*"],
+            "@type/*": ["src/types/*"],
         },
         "plugins": [
             {"transform": "typescript-transform-paths"}

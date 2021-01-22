@@ -1,7 +1,7 @@
 import { model, Schema, Document, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { IUser, IUserAuthResponse } from './types';
+import { IUser, IUserAuthResponse, IUserResponse, IUserSignToken } from './types';
 
 // Example
 // interface UserDocument extends IUser, Document {
@@ -26,6 +26,7 @@ import { IUser, IUserAuthResponse } from './types';
 interface UserDocument extends IUser, Document {
     toAuthJSON: () => IUserAuthResponse,
     generateToken: () => string,
+    toProfileJSON: () => IUserResponse,
 }
 
 interface UserModel extends Model<UserDocument> {}
@@ -76,15 +77,22 @@ schema.methods.toAuthJSON = function () {
     }
 }
 
+schema.methods.toProfileJSON = function () {
+    const { _id, ...user } = this.toJSON();
+    return { id: _id, ...user };
+}
+
 schema.methods.generateToken = function () {
     const today = new Date();
     const exp = new Date(today);
     exp.setDate(today.getDate() + 60);
 
-    return jwt.sign({
+    const user: IUserSignToken = {
         id: this._id,
         username: this.username,
-    }, process.env.JWT_SECRET ?? '', { expiresIn: '2h' });
+    };
+
+    return jwt.sign(user, process.env.JWT_SECRET ?? '', { expiresIn: '2h' });
 }
 
 const User = model<UserDocument, UserModel>('User', schema);

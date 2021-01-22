@@ -1,11 +1,12 @@
-import { register } from './controller';
+import { register, login, getProfile } from './controller';
 
 const resolver = {
     Query: {
-        users: (): number => 1,
+        me: getProfile,
     },
     Mutation: {
         register,
+        login,
     },
 };
 

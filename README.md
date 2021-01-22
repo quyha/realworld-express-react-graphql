@@ -4,8 +4,6 @@
 
 This codebase was created to demonstrate a fully fledged fullstack application built with Graphql with Apollo Server including CRUD operations, authentication, routing, pagination, and more.
 
-We've gone to great lengths to adhere to the Graphql with Apollo Server community styleguides & best practices
-
 ### Dependencies
 
 - [expressjs](https://github.com/expressjs/express) - The server for handling HTTP requests

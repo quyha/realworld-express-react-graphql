@@ -14,3 +14,5 @@ const username = Joi.string().empty().min(3).max(10).required().messages({
 const password = Joi.string().min(5).required();
 
 export const userRegisterRules = Joi.object({ email, username, password });
+
+export const userLoginRules = Joi.object({ email, password });
