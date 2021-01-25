@@ -23,7 +23,7 @@ import { IUser, IUserAuthResponse, IUserResponse, IUserSignToken } from './types
 //     return '1';
 // }
 
-interface UserDocument extends IUser, Document {
+export interface UserDocument extends IUser, Document {
     toAuthJSON: () => IUserAuthResponse,
     generateToken: () => string,
     toProfileJSON: () => IUserResponse,
@@ -78,7 +78,7 @@ schema.methods.toAuthJSON = function () {
 }
 
 schema.methods.toProfileJSON = function () {
-    const { _id, ...user } = this.toJSON();
+    const { _id, password, ...user } = this.toJSON();
     return { id: _id, ...user };
 }
 

@@ -3,8 +3,8 @@ import bcrypt from 'bcrypt';
 import validator from '@utils/validator';
 import { authenticate } from '@utils/authentication';
 import { IContextRequest } from '@type/graphql';
-import { userRegisterRules, userLoginRules } from './validations';
-import { IUserRegisterInput, IUserAuthResponse, IUserResponse } from './types';
+import { userRegisterRules, userLoginRules, userUpdateRules } from './validations';
+import { IUserRegisterInput, IUserAuthResponse, IUserResponse, IUserUpdateInput } from './types';
 import User from './model';
 
 export const register = async (_: never, { input }: { input: IUserRegisterInput }): Promise<IUserAuthResponse> => {
@@ -34,5 +34,16 @@ export const login = async (_: never, { email, password }: { email: string, pass
 
 export const getProfile = async (_: never, __: never, { token }: IContextRequest): Promise<IUserResponse> => {
     const user = await authenticate(token);
-    return user;
+    return user.toProfileJSON();
+}
+
+export const updateProfile = async (_: never, { input }: { input: IUserUpdateInput }, { token }: IContextRequest): Promise<IUserResponse> => {
+    const user = await authenticate(token);
+    await validator(userUpdateRules, input);
+    const updatedUser = await User.findOneAndUpdate({ _id: user._id }, input, { new: true, useFindAndModify: false });
+
+    if (!updatedUser) {
+        throw new UserInputError('Invalid User');
+    }
+    return updatedUser.toProfileJSON();
 }

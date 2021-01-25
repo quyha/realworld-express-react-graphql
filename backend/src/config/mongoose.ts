@@ -3,4 +3,8 @@ import mongoose from 'mongoose';
 
 // mongoose.plugin(beautifulUnique);
 
-export default mongoose.connect(process.env.MONGODB_URL ?? '', { useNewUrlParser: true, useUnifiedTopology: true });
+export default mongoose.connect(process.env.MONGODB_URL ?? '', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+});

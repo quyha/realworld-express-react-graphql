@@ -1,4 +1,4 @@
-import { register, login, getProfile } from './controller';
+import { register, login, getProfile, updateProfile } from './controller';
 
 const resolver = {
     Query: {
@@ -7,6 +7,7 @@ const resolver = {
     Mutation: {
         register,
         login,
+        updateProfile,
     },
 };
 

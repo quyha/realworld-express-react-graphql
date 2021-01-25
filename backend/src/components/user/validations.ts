@@ -16,3 +16,10 @@ const password = Joi.string().min(5).required();
 export const userRegisterRules = Joi.object({ email, username, password });
 
 export const userLoginRules = Joi.object({ email, password });
+
+export const userUpdateRules = Joi.object({
+    email: Joi.string().email().empty(),
+    username: Joi.string().empty(),
+    bio: Joi.string().empty(),
+    image: Joi.string().empty(),
+});

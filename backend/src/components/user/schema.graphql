@@ -19,7 +19,15 @@ input RegisterInput {
     password: String!,
 }
 
+input UpdateProfileInput {
+    email: String,
+    username: String,
+    bio: String,
+    image: String,
+}
+
 type Mutation {
     register(input: RegisterInput!): User!,
     login(email: String!, password: String!): User!,
+    updateProfile(input: UpdateProfileInput!): User,
 }

@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { AuthenticationError } from 'apollo-server';
-import { IUserSignToken, IUserResponse } from '@components/user/types';
-import User from '@components/user/model';
+import { IUserSignToken } from '@components/user/types';
+import User, { UserDocument } from '@components/user/model';
 
-async function authenticate (token: string): Promise<IUserResponse> {
+async function authenticate (token: string): Promise<UserDocument> {
     if (!token) throw new AuthenticationError('You should provide a token!');
 
     const userSign: IUserSignToken = await new Promise((resolve) => {
@@ -20,7 +20,7 @@ async function authenticate (token: string): Promise<IUserResponse> {
         throw new AuthenticationError('Invalid User');
     }
     
-    return user.toProfileJSON();
+    return user;
 }
 
 export { authenticate };

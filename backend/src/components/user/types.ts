@@ -13,7 +13,7 @@ export interface IUserAuthResponse extends Pick<IUser, 'username' | 'email' | 'i
     accessToken: string,
 }
 
-export interface IUserResponse extends IUser {
+export interface IUserResponse extends Omit<IUser, 'password'> {
     id: string,
 }
 
@@ -27,3 +27,5 @@ export interface IUserRegisterInput {
     email: string,
     password: string,
 }
+
+export interface IUserUpdateInput extends Pick<IUser, 'email' | 'password' | 'username' | 'bio' | 'image'> {}
