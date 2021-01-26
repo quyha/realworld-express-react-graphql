@@ -1,4 +1,11 @@
-import { register, login, getProfile, updateProfile } from './controller';
+import {
+    register,
+    login,
+    getProfile,
+    updateProfile,
+    follow,
+    unfollow,
+} from './controller';
 
 const resolver = {
     Query: {
@@ -8,6 +15,8 @@ const resolver = {
         register,
         login,
         updateProfile,
+        followUser: follow,
+        unfollowUser: unfollow,
     },
 };
 

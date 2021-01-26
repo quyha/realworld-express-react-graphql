@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { validateId } from '@utils/validator';
 
 const email = Joi.string().email().required().messages({
     'string.base': '"email" should be a type of \'text\'',
@@ -23,3 +24,5 @@ export const userUpdateRules = Joi.object({
     bio: Joi.string().empty(),
     image: Joi.string().empty(),
 });
+
+export const userFollowRules = Joi.object({ id: Joi.string().custom(validateId, 'Invalid ID').required() });

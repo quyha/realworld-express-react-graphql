@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import validator from '@utils/validator';
 import { authenticate } from '@utils/authentication';
 import { IContextRequest } from '@type/graphql';
-import { userRegisterRules, userLoginRules, userUpdateRules } from './validations';
+import { userRegisterRules, userLoginRules, userUpdateRules, userFollowRules } from './validations';
 import { IUserRegisterInput, IUserAuthResponse, IUserResponse, IUserUpdateInput } from './types';
 import User from './model';
 
@@ -45,5 +45,28 @@ export const updateProfile = async (_: never, { input }: { input: IUserUpdateInp
     if (!updatedUser) {
         throw new UserInputError('Invalid User');
     }
+    return updatedUser.toProfileJSON();
+}
+
+export const follow = async (_: never, { id }: { id: string }, { token }: IContextRequest): Promise<IUserResponse> => {
+    const user = await authenticate(token);
+    await validator(userFollowRules, { id });
+    if (user.followings.includes(id) || user._id.toString() === id) {
+        return user.toProfileJSON();
+    }
+    
+    user.followings.push(id);
+    const updatedUser = await user.save();
+    return updatedUser.toProfileJSON();
+}
+
+export const unfollow = async (_: never, { id }: { id: string }, { token }: IContextRequest): Promise<IUserResponse> => {
+    const user = await authenticate(token);
+    await validator(userFollowRules, { id });
+    if (!user.followings.includes(id)) {
+        return user.toProfileJSON();
+    }
+    user.followings = user.followings.filter((value) => value.toString() !== id);
+    const updatedUser = await user.save();
     return updatedUser.toProfileJSON();
 }

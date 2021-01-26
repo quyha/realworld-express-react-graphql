@@ -6,7 +6,7 @@ type User {
     image: String,
     favorites: [String]!,
     followings: [String]!,
-    accessToken: String!,
+    accessToken: String,
 }
 
 type Query {
@@ -30,4 +30,6 @@ type Mutation {
     register(input: RegisterInput!): User!,
     login(email: String!, password: String!): User!,
     updateProfile(input: UpdateProfileInput!): User,
+    followUser(id: String!): User,
+    unfollowUser(id: String!): User,
 }
