@@ -16,6 +16,7 @@
     "@types/jest": "^26.0.15",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^14.14.10",
+    "@types/slug": "^0.9.1",
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
@@ -46,7 +47,8 @@
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.11",
-    "mongoose-beautiful-unique-validation": "^7.1.1"
+    "mongoose-beautiful-unique-validation": "^7.1.1",
+    "slug": "^4.0.2"
   },
   "nodemonConfig": {
     "ignore": [

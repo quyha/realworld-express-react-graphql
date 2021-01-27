@@ -1,0 +1,32 @@
+type Article {
+    id: ID!,
+    title: String!,
+    description: String!,
+    body: String!,
+    slug: String!,
+    favoritesCount: Int!,
+    tags: [String]!,
+    author: User!,
+    createdAt: String!,
+    updatedAt: String!,
+}
+
+type Query {
+    articles(
+        limit: Int,
+        cursor: String,
+        tags: [String],
+        authoredBy: String
+    ): [Article],
+}
+
+input CreateArticleInput {
+    title: String!,
+    description: String!,
+    body: String!,
+    tags: [String],
+}
+
+type Mutation {
+    createArticle(input: CreateArticleInput!): Article,
+}
