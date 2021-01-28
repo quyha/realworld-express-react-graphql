@@ -21,4 +21,13 @@ export interface IArgsArticles {
     authoredBy: string,
 }
 
+export interface IArticlesConnection {
+    count: number,
+    edges: IArticle[],
+    pageInfo: {
+        endCursor: string,
+        hasNextPage: boolean,
+    },
+}
+
 export interface ICreateArticle extends Pick<IArticle, 'title' | 'description' | 'body' | 'tags'> {}

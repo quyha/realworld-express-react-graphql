@@ -1,14 +1,36 @@
 import { IContextRequest } from '@type/graphql';
 import { authenticate } from '@utils/authentication';
-import { IArgsArticles, ICreateArticle, IArticle } from './types';
+import { IArgsArticles, ICreateArticle, IArticle, IArticlesConnection } from './types';
 import validator from '@utils/validator';
 import { createArticleRules, updateArticleRules, idArticleRules } from './validations';
 import Article from './model';
+import { toCursorHash, fromCursorHash } from '@utils/collection';
 
-export const getArticles = async (_: never, args: IArgsArticles, { token }: IContextRequest): Promise<any> => {
-    // const user = await authenticate(token);
-    // const { cursor, limit, authoredBy } = args;
-    console.log(args, token);
+export const getArticles = async (_: never, args: IArgsArticles, { token }: IContextRequest): Promise<IArticlesConnection> => {
+    const user = await authenticate(token);
+    
+    const { cursor, limit = 2 } = args;
+    const filter = cursor ? { createdAt: { $lt: fromCursorHash(cursor) } } : {};
+    
+    const [ articles ] = await Promise.all([
+        Article
+            .find(filter)
+            .limit(Number(limit) + 1)
+            .sort({ createdAt: 'desc' }),
+        // Article.countDocuments(filter),
+    ]);
+    
+    const hasNextPage = articles.length > limit;
+    const edges = hasNextPage ? articles.slice(0, -1) : articles;
+    
+    return {
+        count: 0,
+        edges: edges.map(article => article.toJSONFor(user.toProfileJSON())),
+        pageInfo: {
+            endCursor: edges.length > 0 ? toCursorHash(edges[edges.length - 1].createdAt) : '',
+            hasNextPage,
+        },
+    };
 };
 
 export const createArticle = async (_: never, { input }: { input: ICreateArticle }, { token }: IContextRequest): Promise<IArticle> => {

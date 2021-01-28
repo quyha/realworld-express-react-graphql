@@ -11,13 +11,19 @@ type Article {
     updatedAt: String!,
 }
 
+type ArticlesConnection {
+    count: Int!,
+    edges: [Article],
+    pageInfo: PageInfo,
+}
+
 type Query {
     articles(
         limit: Int,
         cursor: String,
         tags: [String],
         authoredBy: String
-    ): [Article],
+    ): ArticlesConnection!,
 }
 
 input CreateArticleInput {
