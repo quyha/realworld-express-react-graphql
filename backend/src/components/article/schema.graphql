@@ -29,4 +29,8 @@ input CreateArticleInput {
 
 type Mutation {
     createArticle(input: CreateArticleInput!): Article,
+    updateArticle(id: String!, input: CreateArticleInput!): Article,
+    deleteArticle(id: String!): Article,
+    favoriteArticle(id: String!): Article,
+    unfavoriteArticle(id: String!): Article,
 }

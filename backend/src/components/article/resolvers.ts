@@ -1,4 +1,11 @@
-import { getArticles, createArticle } from './controller';
+import {
+    getArticles,
+    createArticle,
+    updateArticle,
+    deleteArticle,
+    favoriteArticle,
+    unfavoriteArticle,
+} from './controller';
 
 const resolvers = {
     Query: {
@@ -6,6 +13,10 @@ const resolvers = {
     },
     Mutation: {
         createArticle,
+        updateArticle,
+        deleteArticle,
+        favoriteArticle,
+        unfavoriteArticle,
     }
 };
 
